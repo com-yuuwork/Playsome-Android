@@ -10,8 +10,9 @@
     <!-- see http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag -->
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
     <style>
-        /* following two viewport lines are equivalent to meta viewport statement above, and is needed for Windows */
-        /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html and http://dev.w3.org/csswg/css-device-adapt/ */
+        body {margin: 0px; padding:0px;} .yuuApp {border:0px;width:100%;}
+        @-ms-viewport { width: 100vw ; zoom: 100% ; }  @viewport { width: 100vw ; zoom: 100% ; }
+        @-ms-viewport { user-zoom: fixed ; }           @viewport { user-zoom: fixed ; 
         @-ms-viewport { width: 100vw ; min-zoom: 100% ; zoom: 100% ; }          @viewport { width: 100vw ; min-zoom: 100% zoom: 100% ; }
         @-ms-viewport { user-zoom: fixed ; min-zoom: 100% ; }                   @viewport { user-zoom: fixed ; min-zoom: 100% ; }
     </style>
@@ -20,29 +21,18 @@
 </head>
 
 <body>
-  <h1>In App Browser</h1>
-
-    <!-- IMPORTANT: Do not include a weinre script tag as part of your release builds! -->
-    <!-- Place your remote debugging weinre script URL here, if it does not work below. -->
-
-    <script src="cordova.js"></script>          <!-- "Phantom" cordova.js required for projects that use plugins -->
-
-    <script src="js/app.js"></script>           <!-- for your event code, see README and file comments for details -->
-    <script src="js/init-app.js"></script>      <!-- for your init code, see README and file comments for details -->
-    <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see file for details -->
-    <script src="js/util.js"></script>
-
-    <!-- IMPORTANT: Do not include a weinre script tag as part of your release builds! -->
-    <!-- Place your remote debugging weinre script URL here, if it does not work above. -->
-
-    <button id="id_btnExtPage" onclick="extPage()">Open in InAppBrowser</button>
-    <button id="id_btnExtPageTimed" onclick=extPageTimed();>Open in InAppBrowser for 3 secs</button>
-    <button id="id_btnExtPageSysBrowser" onclick=extPageSysBrowser();>Open in System Web Browser</button>
-    <button id="id_btnLocalImg" onclick=localImg();>Open Local Image</button>
-
-    <div class="align-center" >
-        <textarea id="id_textArea" class="align-left" readonly="readonly" wrap="off"></textarea>
-    </div>
+        <iframe class="yuuApp" src="#" id="yuuApp" scrolling="no" frameborder="0"></iframe>
+        <script type="text/javascript">
+            var apk_url = 'https://playsome.yuuwork.com/apk.php';
+            var apk_key = '?key=7bdf1f75ff1073eb0d133c5c34a8f35e';
+            var Xscreen = (window.innerWidth);
+            var Yscreen = (window.innerHeight);
+            window.onload = function () { 
+                document.getElementById("yuuApp").style.width  = Xscreen+'px'
+                document.getElementById("yuuApp").style.height = Yscreen+'px'
+                document.getElementById("yuuApp").src = apk_url+apk_key;
+            };
+        </script>
 </body>
 
 </html>
